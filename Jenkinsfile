@@ -41,7 +41,7 @@ pipeline {
     }
 }
 
-compile(dirName){
+def compile(dirName){
     dir (dirName) {
         sh 'mvn clean compile'
     }
