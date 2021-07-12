@@ -20,13 +20,13 @@ pipeline {
                echo "-=- cexecute unit tests -=-"
 
                dir ('customer-service') {
-                sh 'mvn test org.jacoco:jacoco-maven-plugin:report'
+                sh 'mvn test'
                 junit 'target/surefire-reports/*.xml'
                 jacoco execPattern: 'target/jacoco.exec'
                }
 
                dir ('product-service') {
-                sh 'mvn test org.jacoco:jacoco-maven-plugin:report'
+                sh 'mvn test'
                 junit 'target/surefire-reports/*.xml'
                 jacoco execPattern: 'target/jacoco.exec'
                }
