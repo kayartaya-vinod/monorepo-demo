@@ -4,15 +4,8 @@ pipeline {
         stage('Compile') {
             steps {
                echo "-=- compiling project -=-"
-
-               dir ('customer-service') {
-                sh 'mvn clean compile'
-               }
-
-               dir ('product-service') {
-                sh 'mvn clean compile'
-               }
-
+               compile('customer-service')
+               compile('product-service')
             }
         }
         stage('Unit tests') {
@@ -45,5 +38,11 @@ pipeline {
                 }
             }
         }
+    }
+}
+
+compile(dirName){
+    dir (dirName) {
+        sh 'mvn clean compile'
     }
 }
