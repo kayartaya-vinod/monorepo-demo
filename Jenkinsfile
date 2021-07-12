@@ -11,31 +11,16 @@ pipeline {
         stage('Unit tests') {
             steps {
                echo "-=- cexecute unit tests -=-"
-
-               dir ('customer-service') {
-                sh 'mvn test'
-                junit 'target/surefire-reports/*.xml'
-               }
-
-               dir ('product-service') {
-                sh 'mvn test'
-                junit 'target/surefire-reports/*.xml'
-               }
-               
+               runTests('customer-service')
+               runTests('product-service')
             }
         }
 
-        stage('Package') {
+        stage('Build') {
             steps {
                 echo "-=- packaging project -=-"
-                dir ('customer-service') {
-                    sh "mvn package -DskipTests"
-                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                }
-                dir ('product-service') {
-                    sh "mvn package -DskipTests"
-                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                }
+                createBuild('customer-service')
+                createBuild('product-service')
             }
         }
     }
@@ -44,5 +29,19 @@ pipeline {
 def compile(dirName){
     dir (dirName) {
         sh 'mvn clean compile'
+    }
+}
+
+def runTests(dirName){
+    dir(dirName){
+        sh 'mvn test'
+        junit 'target/surefire-reports/*.xml'
+    }
+}
+
+def createBuild(dirName){
+    dir (dirName) {
+        sh "mvn package -DskipTests"
+        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
     }
 }
