@@ -3,10 +3,10 @@ pipeline {
     stages {
         stage('Build services') {
             steps {
-               dir (customer-service) {
+               dir (/customer-service) {
                 sh 'mvn -B -DskipTests clean package'
                }
-               dir (product-service) {
+               dir (/product-service) {
                 sh 'mvn -B -DskipTests clean package'
                }
             }
