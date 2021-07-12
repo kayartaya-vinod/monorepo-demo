@@ -4,7 +4,7 @@ pipeline {
         
         stage('Compile') {
             when {
-                changeset "customer-service/*.*"
+                changeset "**/customer-service/*.*"
                 beforeAgent true
             } 
             steps {
@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Unit tests') {
             when {
-                changeset "customer-service/*.*"
+                changeset "**/customer-service/*.*"
                 beforeAgent true
             } 
             steps {
@@ -25,7 +25,7 @@ pipeline {
 
         stage('Build') {
             when {
-                changeset "customer-service/*.*"
+                changeset "**/customer-service/*.*"
                 beforeAgent true
             } 
             steps {
