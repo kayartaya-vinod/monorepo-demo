@@ -1,17 +1,22 @@
 pipeline {
     agent any
     stages {
-        when {
-            changeset "customer-service/*.*"
-            beforeAgent true
-        } 
+        
         stage('Compile') {
+            when {
+                changeset "customer-service/*.*"
+                beforeAgent true
+            } 
             steps {
                echo "-=- compiling project -=-"
                compile('customer-service')
             }
         }
         stage('Unit tests') {
+            when {
+                changeset "customer-service/*.*"
+                beforeAgent true
+            } 
             steps {
                echo "-=- cexecute unit tests -=-"
                runTests('customer-service')
@@ -19,6 +24,10 @@ pipeline {
         }
 
         stage('Build') {
+            when {
+                changeset "customer-service/*.*"
+                beforeAgent true
+            } 
             steps {
                 echo "-=- packaging project -=-"
                 createBuild('customer-service')
