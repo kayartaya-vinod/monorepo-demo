@@ -4,20 +4,20 @@ pipeline {
         stage('Compile') {
             steps {
                echo "-=- compiling project -=-"
-               compile('product-service')
+               compile('customer-service')
             }
         }
         stage('Unit tests') {
             steps {
                echo "-=- cexecute unit tests -=-"
-               runTests('product-service')
+               runTests('customer-service')
             }
         }
 
         stage('Build') {
             steps {
                 echo "-=- packaging project -=-"
-                createBuild('product-service')
+                createBuild('customer-service')
             }
         }
     }
