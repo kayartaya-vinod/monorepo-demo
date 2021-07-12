@@ -2,6 +2,7 @@ pipeline {
     agent any
     stages {
         stage('Compile') {
+            
             steps {
                echo "-=- compiling project -=-"
                compile('customer-service')
@@ -27,8 +28,12 @@ pipeline {
 }
 
 def compile(dirName){
-    dir (dirName) {
-        sh 'mvn clean compile'
+    when {
+        changeset dirName+"/*.*"
+        beforeAgent true
+        dir (dirName) {
+            sh 'mvn clean compile'
+        }
     }
 }
 
