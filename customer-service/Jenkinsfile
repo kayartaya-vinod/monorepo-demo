@@ -1,6 +1,10 @@
 pipeline {
     agent any
     stages {
+        when {
+            changeset "customer-service/*.*"
+            beforeAgent true
+        } 
         stage('Compile') {
             steps {
                echo "-=- compiling project -=-"
