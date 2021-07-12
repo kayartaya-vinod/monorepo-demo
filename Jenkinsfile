@@ -22,13 +22,11 @@ pipeline {
                dir ('customer-service') {
                 sh 'mvn test'
                 junit 'target/surefire-reports/*.xml'
-                jacoco execPattern: 'target/jacoco.exec'
                }
 
                dir ('product-service') {
                 sh 'mvn test'
                 junit 'target/surefire-reports/*.xml'
-                jacoco execPattern: 'target/jacoco.exec'
                }
                
             }
